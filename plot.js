@@ -62,21 +62,21 @@ function split1(d,ax,ay,bx,by){
   }return obj
 }
 
-function split2(d,ax,ay,bx,by){
-  var m = ((ay-by)/(ax-bx));
-  var b = ay-(m*ax);
-  var xUse = (ax-bx)/d;
-  var obj = {
-    x: [],
-    y: []
-  }
-  for(i=0;i<=d;i++){
-    var x = ax+(xUse*i);
-    var y = (m*x)+b;
-    obj.x.push(x);
-    obj.y.push(y);
-  }return obj
-}
+// function split2(d,ax,ay,bx,by){
+//   var m = ((ay-by)/(ax-bx));
+//   var b = ay-(m*ax);
+//   var xUse = (ax-bx)/d;
+//   var obj = {
+//     x: [],
+//     y: []
+//   }
+//   for(i=0;i<=d;i++){
+//     var x = ax+(xUse*i);
+//     var y = (m*x)+b;
+//     obj.x.push(x);
+//     obj.y.push(y);
+//   }return obj
+// }
 
 
 //********************************************************************
@@ -148,67 +148,87 @@ obj.objD.y = split1(d,obj.p4.x,obj.p4.y,obj.p1.x,obj.p1.y).y;
 }
 
 
-var text = '';
-var newbuffer = 'new' + '</br>' + 'newbuffer ' + '</br>';
-var value = '';
+// var text = '';
+// var newbuffer = 'new' + '</br>' + 'newbuffer ' + '</br>';
+// var value = '';
 
+
+
+
+function makeOne(points){
+
+  var count = 0;
+  var str = '</br>' + 'new' + '</br>' + 'newbuffer ' + '</br>';
+
+  for(i=0;i<=d;i++){
+
+    if(points.objA.x[i+1] != undefined){
+      str += 'newbuffer ' + '</br>';
+      str += 'addvalue ' + count + ' ' + points.objA.x[i] + ' ' + points.objA.y[i] + '</br>';
+      str += 'addvalue ' + count + ' ' + points.objA.x[i+1] + ' ' + points.objA.y[i+1] + '</br>';
+      count+=1
+    }
+  }
+
+  for(i=0;i<=d;i++){
+
+    if(points.objB.x[i+1] != undefined){
+      str += 'newbuffer ' + '</br>' + 'newbuffer ' + '</br>';
+      str += 'addvalue ' + count + ' ' + points.objB.x[i] + ' ' + points.objB.y[i] + '</br>';
+      str += 'addvalue ' + count + ' ' + points.objB.x[i+1] + ' ' + points.objB.y[i+1] + '</br>';
+      count+=1
+    }
+  }
+
+  for(i=0;i<=d;i++){
+
+    if(points.objC.x[i+1] != undefined){
+      str += 'newbuffer ' + '</br>' + 'newbuffer ' + '</br>';
+      str += 'addvalue ' + count + ' ' + points.objC.x[i] + ' ' + points.objC.y[i] + '</br>';
+      str += 'addvalue ' + count + ' ' + points.objC.x[i+1] + ' ' + points.objC.y[i+1] + '</br>';
+      count+=1
+    }
+  }
+
+  for(i=0;i<=d;i++){
+
+    if(points.objD.x[i+1] != undefined){
+      str += 'newbuffer ' + '</br>' + 'newbuffer ' + '</br>';
+      str += 'addvalue ' + count + ' ' + points.objD.x[i] + ' ' + points.objD.y[i] + '</br>';
+      str += 'addvalue ' + count + ' ' + points.objD.x[i+1] + ' ' + points.objD.y[i+1] + '</br>';
+      count+=1
+    }
+  }
+
+
+  var extra = 'windowsize 700 700' + '</br>' + 'blinewidth .2 all' + '</br>' + 'drawframe no' + '</br>' + 'asetticks x no' + '</br>' + 'asetticks y no' + '</br>' + 'asetminticks x no' + '</br>' + 'asetminticks y no' + '</br>' +'framewidth 0' + '</br>' + 'bstyle yes no no no no no no yes no no 0' + '</br>' + 'margins 0 0 0 0' + '</br>' + 'range x '  + -plotSize + ' ' + plotSize + '</br>' + 'range y ' + -plotSize + ' ' + plotSize;
+  str += extra
+  //var loc = '</br>' + 'savejpg /Users/royschuyler/Desktop/auto9/' + j + '.jpg 2' + '</br>' + 'close' + '</br>';
+  //var end = newbuffer + value + extra;
+
+
+return str
+} //end function
+
+
+var plotSize = 7;
 var d = 10;
 var H = 5;
 var newH = 4.5;
 var F = 20;
 var L = 1;
-var start = 30;
-var points = getPoints(d,start,H,F,L);
-var count = 0;
 
+var start = 0;
 
-for(i=0;i<=d;i++){
+var text = '';
 
-  if(points.objA.x[i+1] != undefined){
-    newbuffer += 'newbuffer ' + '</br>' + 'newbuffer ' + '</br>';
-    value += 'addvalue ' + count + ' ' + points.objA.x[i] + ' ' + points.objA.y[i] + '</br>';
-    value += 'addvalue ' + count + ' ' + points.objA.x[i+1] + ' ' + points.objA.y[i+1] + '</br>';
-    count+=1
-  }
+for(j=0;j<10;j++){
+  var points = getPoints(d,start,H,F,L);
+  text += makeOne(points);
+  var loc = '</br>' + 'savejpg /Users/royschuyler/Desktop/auto9/' + j + '.jpg 2' + '</br>' + 'close' + '</br>';
+  text += loc;
+  start += 36;
 }
-
-for(i=0;i<=d;i++){
-
-  if(points.objB.x[i+1] != undefined){
-    newbuffer += 'newbuffer ' + '</br>' + 'newbuffer ' + '</br>';
-    value += 'addvalue ' + count + ' ' + points.objB.x[i] + ' ' + points.objB.y[i] + '</br>';
-    value += 'addvalue ' + count + ' ' + points.objB.x[i+1] + ' ' + points.objB.y[i+1] + '</br>';
-    count+=1
-  }
-}
-
-for(i=0;i<=d;i++){
-
-  if(points.objC.x[i+1] != undefined){
-    newbuffer += 'newbuffer ' + '</br>' + 'newbuffer ' + '</br>';
-    value += 'addvalue ' + count + ' ' + points.objC.x[i] + ' ' + points.objC.y[i] + '</br>';
-    value += 'addvalue ' + count + ' ' + points.objC.x[i+1] + ' ' + points.objC.y[i+1] + '</br>';
-    count+=1
-  }
-}
-
-for(i=0;i<=d;i++){
-
-  if(points.objD.x[i+1] != undefined){
-    newbuffer += 'newbuffer ' + '</br>' + 'newbuffer ' + '</br>';
-    value += 'addvalue ' + count + ' ' + points.objD.x[i] + ' ' + points.objD.y[i] + '</br>';
-    value += 'addvalue ' + count + ' ' + points.objD.x[i+1] + ' ' + points.objD.y[i+1] + '</br>';
-    count+=1
-  }
-}
-
-
-  var plotSize = 7;
-  var extra = 'windowsize 700 700' + '</br>' + 'blinewidth .2 all' + '</br>' + 'drawframe no' + '</br>' + 'asetticks x no' + '</br>' + 'asetticks y no' + '</br>' + 'asetminticks x no' + '</br>' + 'asetminticks y no' + '</br>' +'framewidth 0' + '</br>' + 'bstyle yes no no no no no no yes no no 0' + '</br>' + 'margins 0 0 0 0' + '</br>' + 'range x '  + -plotSize + ' ' + plotSize + '</br>' + 'range y ' + -plotSize + ' ' + plotSize;
-  var loc = '</br>' + 'savejpg /Users/royschuyler/Desktop/auto9/' + i + '.jpg 2' + '</br>' + 'close' + '</br>';
-  var end = newbuffer + value + extra;
-  start+=10
-  text += end
 
 
 var element = document.getElementById('p1');
