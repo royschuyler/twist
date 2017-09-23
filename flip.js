@@ -204,10 +204,10 @@ function makeOne(d,pointsA,pointsB,start){
 if(start>=315 || start<45){
   //str += plotV(d,pointsA.objA, pointsA.reverse.objC,count,color5);
   //count+=d
-  str += plotV(d,pointsA.objB, pointsB.objB,count,color2);
-  count+=d
-  str += plotV(d,pointsA.objC, pointsB.objC,count,color3);
-  count+=d
+  //str += plotV(d,pointsA.objB, pointsB.objB,count,color2);
+  //count+=d
+  //str += plotV(d,pointsA.objC, pointsB.objC,count,color3);
+  //count+=d
   str += plotV(d,pointsA.objD, pointsB.objD,count,color4);
   count+=d
   str += plotV(d,pointsA.objA, pointsB.objA,count,color1);
@@ -219,16 +219,15 @@ if(start>=315 || start<45){
 if(start>=45 && start<135){
   //str += plotV(d,pointsA.objA, pointsA.reverse.objC,count,color5);
   //count+=d
-  str += plotV(d,pointsA.objA, pointsB.objA,count,color1);
-  count+=d
-  str += plotV(d,pointsA.objB, pointsB.objB,count,color2);
-  count+=d
+  // str += plotV(d,pointsA.objA, pointsB.objA,count,color1);
+  // count+=d
+  // str += plotV(d,pointsA.objB, pointsB.objB,count,color2);
+  // count+=d
   str += plotV(d,pointsA.objC, pointsB.objC,count,color3);
   count+=d
   str += plotV(d,pointsA.objD, pointsB.objD,count,color4);
   count+=d
   str += plotV(d,pointsB.objB, pointsB.reverse.objD,count,color6);
-  count+=d
 }
 
 if(start>=135 && start<225){
@@ -236,10 +235,10 @@ if(start>=135 && start<225){
 
   //str += plotV(d,pointsA.objA, pointsA.reverse.objC,count,color5);
   //count+=d
-  str += plotV(d,pointsA.objD, pointsB.objD,count,color4);
-  count+=d
-  str += plotV(d,pointsA.objA, pointsB.objA,count,color1);
-  count+=d
+  // str += plotV(d,pointsA.objD, pointsB.objD,count,color4);
+  // count+=d
+  // str += plotV(d,pointsA.objA, pointsB.objA,count,color1);
+  // count+=d
   str += plotV(d,pointsA.objB, pointsB.objB,count,color2);
   count+=d
   str += plotV(d,pointsA.objC, pointsB.objC,count,color3);
@@ -251,10 +250,10 @@ if(start>=225 && start<315){
 
   //str += plotV(d,pointsA.objA, pointsA.reverse.objC,count,color5);
   //count+=d
-  str += plotV(d,pointsA.objC, pointsB.objC,count,color3);
-  count+=d
-  str += plotV(d,pointsA.objD, pointsB.objD,count,color4);
-  count+=d
+  // str += plotV(d,pointsA.objC, pointsB.objC,count,color3);
+  // count+=d
+  // str += plotV(d,pointsA.objD, pointsB.objD,count,color4);
+  // count+=d
   str += plotV(d,pointsA.objA, pointsB.objA,count,color1);
   count+=d
   str += plotV(d,pointsA.objB, pointsB.objB,count,color2);
@@ -283,14 +282,14 @@ var base = 0;
 
 var text = '';
 
-for(j=0;j<10;j++){
+for(j=0;j<20;j++){
   var start = regulate(base);
   var pointsA = getPoints(d,start,H,F,L);
   var pointsB = getPoints(d,start,H2,F,L);
   text += makeOne(d,pointsA,pointsB,start);
   var loc = '</br>' + 'savejpg /Users/royschuyler/Desktop/auto9/' + j + '.jpg 2' + '</br>' + 'close' + '</br>';
   text += loc;
-  base += 36;
+  base += 18;
   console.log(start)
 }
 
