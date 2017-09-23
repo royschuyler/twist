@@ -62,21 +62,18 @@ function split1(d,ax,ay,bx,by){
   }return obj
 }
 
-// function split2(d,ax,ay,bx,by){
-//   var m = ((ay-by)/(ax-bx));
-//   var b = ay-(m*ax);
-//   var xUse = (ax-bx)/d;
-//   var obj = {
-//     x: [],
-//     y: []
-//   }
-//   for(i=0;i<=d;i++){
-//     var x = ax+(xUse*i);
-//     var y = (m*x)+b;
-//     obj.x.push(x);
-//     obj.y.push(y);
-//   }return obj
-// }
+
+function plotV(d,A,B,count){
+  var smStr = '';
+  for(i=0;i<d;i++){
+    smStr += 'newbuffer ' + '</br>';
+    smStr += 'addvalue ' + count + ' ' + A.x[i] + ' ' + A.y[i] + '</br>';
+    smStr += 'addvalue ' + count + ' ' + B.x[i] + ' ' + B.y[i] + '</br>';
+    count += 1
+  }
+  return smStr
+}
+
 
 
 //********************************************************************
@@ -132,6 +129,16 @@ function getPoints(d,start,H,F,L){
       x: [],
       y: []
     },
+    reverse: {
+      objC:{
+        x: [],
+        y: []
+      },
+      objD:{
+        x: [],
+        y: []
+      }
+    }
   }
 
   obj.objA.x = split1(d,obj.p1.x,obj.p1.y,obj.p2.x,obj.p2.y).x;
@@ -142,68 +149,44 @@ function getPoints(d,start,H,F,L){
   obj.objC.y = split1(d,obj.p3.x,obj.p3.y,obj.p4.x,obj.p4.y).y;
   obj.objD.x = split1(d,obj.p4.x,obj.p4.y,obj.p1.x,obj.p1.y).x;
   obj.objD.y = split1(d,obj.p4.x,obj.p4.y,obj.p1.x,obj.p1.y).y;
+  obj.reverse.objC.x = obj.objC.x.reverse();
+  obj.reverse.objC.y = obj.objC.y.reverse();
+  obj.reverse.objD.x = obj.objD.x.reverse();
+  obj.reverse.objD.y = obj.objD.y.reverse();
+
+
 
   return obj
 }
 
 
 
-function makeOne(pointsA,pointsB){
+function makeOne(d,pointsA,pointsB){
 
-  var count = 0;
   var str = '</br>' + 'new' + '</br>' + 'newbuffer ' + '</br>';
+  var count = 0;
 
-  for(i=0;i<=d;i++){
+  str += plotV(d,pointsA.objA, pointsB.objA,count);
+  count+=d
+  str += plotV(d,pointsA.objB, pointsB.objB,count);
+  count+=d
+  str += plotV(d,pointsA.objC, pointsB.objC,count);
+  count+=d
+  str += plotV(d,pointsA.objD, pointsB.objD,count);
+  count+=d
+  str += plotV(d,pointsA.objA, pointsA.reverse.objC,count);
+  count+=d
+  str += plotV(d,pointsB.objB, pointsB.reverse.objD,count);
 
-    if(pointsA.objA.x[i+1] != undefined){
-      str += 'newbuffer ' + '</br>';
-      str += 'addvalue ' + count + ' ' + pointsA.objA.x[i] + ' ' + pointsA.objA.y[i] + '</br>';
-      str += 'addvalue ' + count + ' ' + pointsB.objA.x[i] + ' ' + pointsB.objA.y[i] + '</br>';
-      count+=1
-    }
-  }
-
-  for(i=0;i<=d;i++){
-
-    if(pointsA.objB.x[i+1] != undefined){
-      str += 'newbuffer ' + '</br>' + 'newbuffer ' + '</br>';
-      str += 'addvalue ' + count + ' ' + pointsA.objB.x[i] + ' ' + pointsA.objB.y[i] + '</br>';
-      str += 'addvalue ' + count + ' ' + pointsB.objB.x[i+1] + ' ' + pointsB.objB.y[i+1] + '</br>';
-      count+=1
-    }
-  }
-
-  for(i=0;i<=d;i++){
-
-    if(pointsA.objC.x[i+1] != undefined){
-      str += 'newbuffer ' + '</br>' + 'newbuffer ' + '</br>';
-      str += 'addvalue ' + count + ' ' + pointsA.objC.x[i] + ' ' + pointsA.objC.y[i] + '</br>';
-      str += 'addvalue ' + count + ' ' + pointsB.objC.x[i+1] + ' ' + pointsB.objC.y[i+1] + '</br>';
-      count+=1
-    }
-  }
-
-  for(i=0;i<=d;i++){
-
-    if(pointsA.objD.x[i+1] != undefined){
-      str += 'newbuffer ' + '</br>' + 'newbuffer ' + '</br>';
-      str += 'addvalue ' + count + ' ' + pointsA.objD.x[i] + ' ' + pointsA.objD.y[i] + '</br>';
-      str += 'addvalue ' + count + ' ' + pointsB.objD.x[i+1] + ' ' + pointsB.objD.y[i+1] + '</br>';
-      count+=1
-    }
-  }
-
-
-  var extra = 'windowsize 700 700' + '</br>' + 'blinewidth .2 all' + '</br>' + 'drawframe no' + '</br>' + 'asetticks x no' + '</br>' + 'asetticks y no' + '</br>' + 'asetminticks x no' + '</br>' + 'asetminticks y no' + '</br>' +'framewidth 0' + '</br>' + 'bstyle yes no no no no no no yes no no 0' + '</br>' + 'margins 0 0 0 0' + '</br>' + 'range x '  + -plotSize + ' ' + plotSize + '</br>' + 'range y ' + -plotSize + ' ' + plotSize;
+  var extra = 'windowsize 700 700' + '</br>' + 'blinewidth 1 all' + '</br>' + 'drawframe no' + '</br>' + 'asetticks x no' + '</br>' + 'asetticks y no' + '</br>' + 'asetminticks x no' + '</br>' + 'asetminticks y no' + '</br>' +'framewidth 0' + '</br>' + 'bstyle yes no no no no no no yes no no 0' + '</br>' + 'margins 0 0 0 0' + '</br>' + 'range x '  + -plotSize + ' ' + plotSize + '</br>' + 'range y ' + -plotSize + ' ' + plotSize;
   str += extra
 
-
-return str
-} //end function
+  return str
+}
 
 
 var plotSize = 7;
-var d = 10;
+var d = 50;
 var H = 5;
 var H2 = 4.5;
 var F = 20;
@@ -216,7 +199,7 @@ var text = '';
 for(j=0;j<5;j++){
   var pointsA = getPoints(d,start,H,F,L);
   var pointsB = getPoints(d,start,H2,F,L);
-  text += makeOne(pointsA,pointsB);
+  text += makeOne(d,pointsA,pointsB);
   var loc = '</br>' + 'savejpg /Users/royschuyler/Desktop/auto9/' + j + '.jpg 2' + '</br>' + 'close' + '</br>';
   text += loc;
   start += 72;
