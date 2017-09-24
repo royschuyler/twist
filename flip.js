@@ -71,12 +71,55 @@ function plotV(d,A,B,count,color){
     smStr += 'addvalue ' + count + ' ' + A.x[i] + ' ' + A.y[i] + '</br>';
     smStr += 'addvalue ' + count + ' ' + B.x[i] + ' ' + B.y[i] + '</br>';
 
-
     smStr += 'colormode ' + 0 + '</br>';
     smStr += 'bcolor ' + color[0] + ' ' + color[1] + ' ' + color[2] + ' ' + count + '</br>';
     count += 1
   }
   return smStr
+}
+
+function multipleStart(H1,H2){
+  for(j=0;j<1;j++){
+    text += '</br>' + 'new' + '</br>' + 'newbuffer ' + '</br>';
+    var start = regulate(base);
+    var pointsA = getPoints(d,start,H1,F,L);
+    var pointsB = getPoints(d,start,H2,F,L);
+    text += makeOne(count,d,pointsA,pointsB,start,H1,H2);
+    base += 18;
+    count+=1
+  }
+  base = 0;
+  count += d*3
+}
+
+function multiple(H1,H2){
+  for(j=0;j<1;j++){
+    text += '</br>' + '</br>' + 'newbuffer ' + '</br>';
+    var start = regulate(base);
+    var pointsA = getPoints(d,start,H1,F,L);
+    var pointsB = getPoints(d,start,H2,F,L);
+    text += makeOne(count,d,pointsA,pointsB,start,H1,H2);
+    base += 18;
+    count+=1
+  }
+  base = 0;
+  count += d*3
+}
+
+function multipleEnd(H1,H2){
+  for(j=0;j<1;j++){
+    text += '</br>' + 'newbuffer' + '</br>';
+    var start = regulate(base);
+    var pointsA = getPoints(d,start,H1,F,L);
+    var pointsB = getPoints(d,start,H2,F,L);
+    text += makeOne(count,d,pointsA,pointsB,start,H1,H2);
+    var loc = '</br>' + 'savejpg /Users/royschuyler/Desktop/auto9/' + j + '.jpg 2' + '</br>' + 'close' + '</br>';
+    var extra = 'windowsize 700 700' + '</br>' + 'blinewidth 2 all' + '</br>' + 'drawframe no' + '</br>' + 'asetticks x no' + '</br>' + 'asetticks y no' + '</br>' + 'asetminticks x no' + '</br>' + 'asetminticks y no' + '</br>' +'framewidth 0' + '</br>' + 'bstyle yes no no no no no no yes no no 0' + '</br>' + 'margins 0 0 0 0' + '</br>' + 'range x '  + -plotSize + ' ' + plotSize + '</br>' + 'range y ' + -plotSize + ' ' + plotSize;
+    text += extra
+    //text += loc;
+    base += 18;
+    count+=1
+  }
 }
 
 function regulateArr(d,start){
@@ -276,7 +319,7 @@ function makeOne(count,d,pointsA,pointsB,start,H,H2){
 
 
 var plotSize = 7;
-var d = 40;
+var d = 30;
 var H = -5;
 var H2 = -5.5;
 var H3 = 5;
@@ -289,29 +332,27 @@ var count = 0;
 var count2 = d*3;
 var text = '';
 
-for(j=0;j<1;j++){
-  text += '</br>' + 'new' + '</br>' + 'newbuffer ' + '</br>';
-  var start = regulate(base);
-  var pointsA = getPoints(d,start,H,F,L);
-  var pointsB = getPoints(d,start,H2,F,L);
-  text += makeOne(count,d,pointsA,pointsB,start,H,H2);
-  base += 18;
-  count+=1
-}
 
-for(j=0;j<1;j++){
-  var start = regulate(base);
-  var pointsA = getPoints(d,start,H3,F,L);
-  var pointsB = getPoints(d,start,H4,F,L);
-  text += makeOne(count2,d,pointsA,pointsB,start,H3,H4);
 
-  var loc = '</br>' + 'savejpg /Users/royschuyler/Desktop/auto9/' + j + '.jpg 2' + '</br>' + 'close' + '</br>';
-  var extra = 'windowsize 700 700' + '</br>' + 'blinewidth 2 all' + '</br>' + 'drawframe no' + '</br>' + 'asetticks x no' + '</br>' + 'asetticks y no' + '</br>' + 'asetminticks x no' + '</br>' + 'asetminticks y no' + '</br>' +'framewidth 0' + '</br>' + 'bstyle yes no no no no no no yes no no 0' + '</br>' + 'margins 0 0 0 0' + '</br>' + 'range x '  + -plotSize + ' ' + plotSize + '</br>' + 'range y ' + -plotSize + ' ' + plotSize;
-  text += extra
-  //text += loc;
-  base += 18;
-  count+=1
-}
+multipleStart(-4.8,-5);
+multiple(-4.4,-4.6);
+multiple(-4,-4.2);
+multiple(-3.6,-3.8);
+multipleEnd(-3.2,-3.4);
+
+// for(j=0;j<1;j++){
+//   var start = regulate(base);
+//   var pointsA = getPoints(d,start,H3,F,L);
+//   var pointsB = getPoints(d,start,H4,F,L);
+//   text += makeOne(count2,d,pointsA,pointsB,start,H3,H4);
+
+//   var loc = '</br>' + 'savejpg /Users/royschuyler/Desktop/auto9/' + j + '.jpg 2' + '</br>' + 'close' + '</br>';
+//   var extra = 'windowsize 700 700' + '</br>' + 'blinewidth 2 all' + '</br>' + 'drawframe no' + '</br>' + 'asetticks x no' + '</br>' + 'asetticks y no' + '</br>' + 'asetminticks x no' + '</br>' + 'asetminticks y no' + '</br>' +'framewidth 0' + '</br>' + 'bstyle yes no no no no no no yes no no 0' + '</br>' + 'margins 0 0 0 0' + '</br>' + 'range x '  + -plotSize + ' ' + plotSize + '</br>' + 'range y ' + -plotSize + ' ' + plotSize;
+//   text += extra
+//   //text += loc;
+//   base += 18;
+//   count+=1
+// }
 
 
 
