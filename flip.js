@@ -189,10 +189,10 @@ function getPoints(d,start,H,F,L){
 
 
 
-function makeOne(d,pointsA,pointsB,start){
+function makeOne(count,d,pointsA,pointsB,start,H,H2){
 
-  var str = '</br>' + 'new' + '</br>' + 'newbuffer ' + '</br>';
-  var count = 0;
+  var str = '';
+  //var count = 0;
 
   var color1 = [209/255,5/255,0];
   var color2 = [13/255,30/255,148/255];
@@ -201,97 +201,120 @@ function makeOne(d,pointsA,pointsB,start){
   var color5 = [1,1,1];
   var color6 = [0,0,0];
 
-if(start>=315 || start<45){
-  //str += plotV(d,pointsA.objA, pointsA.reverse.objC,count,color5);
-  //count+=d
-  //str += plotV(d,pointsA.objB, pointsB.objB,count,color2);
-  //count+=d
-  //str += plotV(d,pointsA.objC, pointsB.objC,count,color3);
-  //count+=d
-  str += plotV(d,pointsA.objD, pointsB.objD,count,color4);
-  count+=d
-  str += plotV(d,pointsA.objA, pointsB.objA,count,color1);
-  count+=d
-  str += plotV(d,pointsB.objB, pointsB.reverse.objD,count,color6);
+  if(H >= 0 && H2 >= 0){
 
-}
+    if(start>=315 || start<45){
+      str += plotV(d,pointsA.objD, pointsB.objD,count,color4);
+      count+=d
+      str += plotV(d,pointsA.objA, pointsB.objA,count,color1);
+      count+=d
+      str += plotV(d,pointsB.objB, pointsB.reverse.objD,count,color6);
+    }
 
-if(start>=45 && start<135){
-  //str += plotV(d,pointsA.objA, pointsA.reverse.objC,count,color5);
-  //count+=d
-  // str += plotV(d,pointsA.objA, pointsB.objA,count,color1);
-  // count+=d
-  // str += plotV(d,pointsA.objB, pointsB.objB,count,color2);
-  // count+=d
-  str += plotV(d,pointsA.objC, pointsB.objC,count,color3);
-  count+=d
-  str += plotV(d,pointsA.objD, pointsB.objD,count,color4);
-  count+=d
-  str += plotV(d,pointsB.objB, pointsB.reverse.objD,count,color6);
-}
+    if(start>=45 && start<135){
+      str += plotV(d,pointsA.objC, pointsB.objC,count,color3);
+      count+=d
+      str += plotV(d,pointsA.objD, pointsB.objD,count,color4);
+      count+=d
+      str += plotV(d,pointsB.objB, pointsB.reverse.objD,count,color6);
+    }
 
-if(start>=135 && start<225){
+    if(start>=135 && start<225){
+      str += plotV(d,pointsA.objB, pointsB.objB,count,color2);
+      count+=d
+      str += plotV(d,pointsA.objC, pointsB.objC,count,color3);
+      count+=d
+      str += plotV(d,pointsB.objB, pointsB.reverse.objD,count,color6);
+    }
 
+    if(start>=225 && start<315){
+      str += plotV(d,pointsA.objA, pointsB.objA,count,color1);
+      count+=d
+      str += plotV(d,pointsA.objB, pointsB.objB,count,color2);
+      count+=d
+      str += plotV(d,pointsB.objB, pointsB.reverse.objD,count,color6);
+    }
+  }
 
-  //str += plotV(d,pointsA.objA, pointsA.reverse.objC,count,color5);
-  //count+=d
-  // str += plotV(d,pointsA.objD, pointsB.objD,count,color4);
-  // count+=d
-  // str += plotV(d,pointsA.objA, pointsB.objA,count,color1);
-  // count+=d
-  str += plotV(d,pointsA.objB, pointsB.objB,count,color2);
-  count+=d
-  str += plotV(d,pointsA.objC, pointsB.objC,count,color3);
-  count+=d
-  str += plotV(d,pointsB.objB, pointsB.reverse.objD,count,color6);
-}
+  if(H < 0 && H2 < 0){
 
-if(start>=225 && start<315){
+    if(start>=315 || start<45){
+      str += plotV(d,pointsA.objD, pointsB.objD,count,color4);
+      count+=d
+      str += plotV(d,pointsA.objA, pointsB.objA,count,color1);
+      count+=d
+      str += plotV(d,pointsA.objA, pointsA.reverse.objC,count,color5);
 
-  //str += plotV(d,pointsA.objA, pointsA.reverse.objC,count,color5);
-  //count+=d
-  // str += plotV(d,pointsA.objC, pointsB.objC,count,color3);
-  // count+=d
-  // str += plotV(d,pointsA.objD, pointsB.objD,count,color4);
-  // count+=d
-  str += plotV(d,pointsA.objA, pointsB.objA,count,color1);
-  count+=d
-  str += plotV(d,pointsA.objB, pointsB.objB,count,color2);
-  count+=d
-  str += plotV(d,pointsB.objB, pointsB.reverse.objD,count,color6);
+    }
 
-}
+    if(start>=45 && start<135){
+      str += plotV(d,pointsA.objC, pointsB.objC,count,color3);
+      count+=d
+      str += plotV(d,pointsA.objD, pointsB.objD,count,color4);
+      count+=d
+      str += plotV(d,pointsA.objA, pointsA.reverse.objC,count,color5);
+    }
 
+    if(start>=135 && start<225){
+      str += plotV(d,pointsA.objB, pointsB.objB,count,color2);
+      count+=d
+      str += plotV(d,pointsA.objC, pointsB.objC,count,color3);
+      count+=d
+      str += plotV(d,pointsA.objA, pointsA.reverse.objC,count,color5);
+    }
 
-  var extra = 'windowsize 700 700' + '</br>' + 'blinewidth 2 all' + '</br>' + 'drawframe no' + '</br>' + 'asetticks x no' + '</br>' + 'asetticks y no' + '</br>' + 'asetminticks x no' + '</br>' + 'asetminticks y no' + '</br>' +'framewidth 0' + '</br>' + 'bstyle yes no no no no no no yes no no 0' + '</br>' + 'margins 0 0 0 0' + '</br>' + 'range x '  + -plotSize + ' ' + plotSize + '</br>' + 'range y ' + -plotSize + ' ' + plotSize;
-  str += extra
-
+    if(start>=225 && start<315){
+      str += plotV(d,pointsA.objA, pointsB.objA,count,color1);
+      count+=d
+      str += plotV(d,pointsA.objB, pointsB.objB,count,color2);
+      count+=d
+      str += plotV(d,pointsA.objA, pointsA.reverse.objC,count,color5);
+    }
+  }
   return str
 }
 
 
 var plotSize = 7;
 var d = 40;
-var H = 5;
-var H2 = 4.5;
+var H = -5;
+var H2 = -5.5;
+var H3 = 5;
+var H4 = 4.5;
 var F = 20;
 var L = 1;
 
 var base = 0;
-
-
+var count = 0;
+var count2 = d*3;
 var text = '';
 
-for(j=0;j<20;j++){
+for(j=0;j<1;j++){
+  text += '</br>' + 'new' + '</br>' + 'newbuffer ' + '</br>';
   var start = regulate(base);
   var pointsA = getPoints(d,start,H,F,L);
   var pointsB = getPoints(d,start,H2,F,L);
-  text += makeOne(d,pointsA,pointsB,start);
-  var loc = '</br>' + 'savejpg /Users/royschuyler/Desktop/auto9/' + j + '.jpg 2' + '</br>' + 'close' + '</br>';
-  text += loc;
+  text += makeOne(count,d,pointsA,pointsB,start,H,H2);
   base += 18;
-  console.log(start)
+  count+=1
 }
+
+for(j=0;j<1;j++){
+  var start = regulate(base);
+  var pointsA = getPoints(d,start,H3,F,L);
+  var pointsB = getPoints(d,start,H4,F,L);
+  text += makeOne(count2,d,pointsA,pointsB,start,H3,H4);
+
+  var loc = '</br>' + 'savejpg /Users/royschuyler/Desktop/auto9/' + j + '.jpg 2' + '</br>' + 'close' + '</br>';
+  var extra = 'windowsize 700 700' + '</br>' + 'blinewidth 2 all' + '</br>' + 'drawframe no' + '</br>' + 'asetticks x no' + '</br>' + 'asetticks y no' + '</br>' + 'asetminticks x no' + '</br>' + 'asetminticks y no' + '</br>' +'framewidth 0' + '</br>' + 'bstyle yes no no no no no no yes no no 0' + '</br>' + 'margins 0 0 0 0' + '</br>' + 'range x '  + -plotSize + ' ' + plotSize + '</br>' + 'range y ' + -plotSize + ' ' + plotSize;
+  text += extra
+  //text += loc;
+  base += 18;
+  count+=1
+}
+
+
+
 
 
 var element = document.getElementById('p1');
