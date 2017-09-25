@@ -1,145 +1,3 @@
-//MATH******************************************************
-function radians(degrees) {
-  return degrees * Math.PI / 180;
-};
-
-function sqrt(n){
-  return Math.sqrt(n)
-}
-
-function square(x){
-  return Math.pow(x,2)
-}
-
-function abs(n){
-  return Math.abs(n)
-}
-
-//TRIG******************************************************
-function sin (x) {
-  return Math.sin(x)
-}
-
-function cos (x) {
-  return Math.cos(x)
-}
-
-function tan (x) {
-  return Math.tan(x)
-}
-
-function asin (x) {
-  return Math.asin(x)
-}
-
-function acos (x) {
-  return Math.cos(x)
-}
-
-function atan (x) {
-  return Math.atan(x)
-}
-
-function cot (x) {
-  return 1/Math.tan(x)
-}
-
-
-//********************************************************************
-function split1(d,ax,ay,bx,by){
-  var m = ((ay-by)/(ax-bx));
-  var b = ay-(m*ax);
-  var xUse = (ax-bx)/d;
-  var obj = {
-    x: [],
-    y: []
-  }
-  for(i=0;i<=d;i++){
-    var x = ax-(xUse*i);
-    var y = (m*x)+b;
-    obj.x.push(x);
-    obj.y.push(y);
-  }return obj
-}
-
-
-function plotV(d,A,B,count,color){
-  var smStr = '';
-  for(i=0;i<d;i++){
-
-    smStr += 'newbuffer ' + '</br>';
-    smStr += 'addvalue ' + count + ' ' + A.x[i] + ' ' + A.y[i] + '</br>';
-    smStr += 'addvalue ' + count + ' ' + B.x[i] + ' ' + B.y[i] + '</br>';
-
-    smStr += 'colormode ' + 0 + '</br>';
-    smStr += 'bcolor ' + color[0] + ' ' + color[1] + ' ' + color[2] + ' ' + count + '</br>';
-    count += 1
-  }
-  return smStr
-}
-
-function multipleStart(H1,H2,move,base){
-  text += '</br>' + 'new' + '</br>' + 'newbuffer ' + '</br>';
-  var start = regulate(base);
-  var pointsA = getPoints(d,start,H1,F,L);
-  var pointsB = getPoints(d,start,H2,F,L);
-  text += makeOne(count,d,pointsA,pointsB,start,H1,H2);
-  //base += move;
-  count+=1
-//count += d*3
-}
-
-function multiple(H1,H2,move,base){
-  text += '</br>' + '</br>' + 'newbuffer ' + '</br>';
-  var start = regulate(base);
-  var pointsA = getPoints(d,start,H1,F,L);
-  var pointsB = getPoints(d,start,H2,F,L);
-  text += makeOne(count,d,pointsA,pointsB,start,H1,H2);
-  //base += move;
-  count+=1
-//count += d*3
-}
-
-function multipleEnd(H1,H2,move,base){
-  text += '</br>' + 'newbuffer' + '</br>';
-  var start = regulate(base);
-  var pointsA = getPoints(d,start,H1,F,L);
-  var pointsB = getPoints(d,start,H2,F,L);
-  text += makeOne(count,d,pointsA,pointsB,start,H1,H2);
-  var loc = '</br>' + 'savejpg /Users/royschuyler/Desktop/auto8/' + z + '.jpg 2' + '</br>' + 'close' + '</br>';
-  var extra = 'windowsize 700 700' + '</br>' + 'blinewidth 2 all' + '</br>' + 'drawframe no' + '</br>' + 'asetticks x no' + '</br>' + 'asetticks y no' + '</br>' + 'asetminticks x no' + '</br>' + 'asetminticks y no' + '</br>' +'framewidth 0' + '</br>' + 'bstyle yes no no no no no no yes no no 0' + '</br>' + 'margins 0 0 0 0' + '</br>' + 'range x '  + -plotSize + ' ' + plotSize + '</br>' + 'range y ' + -plotSize + ' ' + plotSize;
-  text += extra
-  text += loc;
-  //base += move;
-  count+=1
-}
-
-function regulateArr(d,start){
-  var arr = [];
-  for(i=0;i<d;i++){
-    if(start*i<=360){
-      arr.push(start*i);
-    }
-    if(start*i>360){
-      var multiplier = Math.floor((start*i/360) % 360);
-      arr.push((start*i)-(360*multiplier))
-    }
-  }return arr
-}
-
-function regulate(start){
-  var real;
-  if(start<=360){
-    real = start;
-  }else {
-    var multiplier = Math.floor((start/360) % 360);
-    real = start-(360*multiplier)
-  }return real
-}
-
-//********************************************************************
-
-
 function shell(d,start,H,F,L){
   this.d = d;
   this.start = start;
@@ -190,35 +48,163 @@ function shell(d,start,H,F,L){
   },
   this.reverse = {
     A: {
-      x: this.A.x.reverse(),
-      y: this.A.y.reverse()
+      x: this.A.x.slice().reverse(),
+      y: this.A.y.slice().reverse()
     },
     B: {
-      x: this.B.x.reverse(),
-      y: this.B.y.reverse()
+      x: this.B.x.slice().reverse(),
+      y: this.B.y.slice().reverse()
     },
     C: {
-      x: this.C.x.reverse(),
-      y: this.C.y.reverse()
+      x: this.C.x.slice().reverse(),
+      y: this.C.y.slice().reverse()
     },
     D: {
-      x: this.D.x.reverse(),
-      y: this.D.y.reverse()
+      x: this.D.x.slice().reverse(),
+      y: this.D.y.slice().reverse()
     }
   }
 }
 
-function two(high,low){
+function plot(high,low){
+  this.str = '';
   this.high = high;
   this.low = low;
+
+  this.count = 0;
+
+  this.start = this.high.start;
+
+  var d = this.high.d;
+
+  var color1 = [209/255,5/255,0];//red
+  var color2 = [13/255,30/255,148/255];//blue
+  var color3 = [0,118/255,18/255];//green
+  var color4 = [226/255,153/255,0];//yellow
+  var color5 = [75/255,0,130/255];//purple
+  var color6 = [0,0,0];
+  var color7 = [0,0,0];
+
+
+
+
+  if(this.high.H >= 0 && this.low.H >= 0){
+
+    if(this.start>=315 || this.start<45){
+      this.str += plotV(d,this.high.D, this.low.D,this.count,color5);
+      this.count+=d
+      this.str += plotV(d,this.high.A, this.low.A,this.count,color4);
+      this.count+=d
+      this.str += plotV(d,this.low.B, this.low.reverse.D,this.count,color6);
+    }
+
+    if(this.start>=45 && this.start<135){
+      this.str += plotV(d,this.high.C, this.low.C,this.count,color4);
+      this.count+=d
+      this.str += plotV(d,this.high.D, this.low.D,this.count,color5);
+      this.count+=d
+      this.str += plotV(d,this.low.B, this.low.reverse.D,this.count,color6);
+    }
+
+    if(this.start>=135 && this.start<225){
+      this.str += plotV(d,this.high.B, this.low.B,this.count,color5);
+      this.count+=d
+      this.str += plotV(d,this.high.C, this.low.C,this.count,color4);
+      this.count+=d
+      this.str += plotV(d,this.low.B, this.low.reverse.D,this.count,color6);
+    }
+
+    if(this.start>=225 && this.start<315){
+      this.str += plotV(d,this.high.A, this.low.A,this.count,color4);
+      this.count+=d
+      this.str += plotV(d,this.high.B, this.low.B,this.count,color5);
+      this.count+=d
+      this.str += plotV(d,this.low.B, this.low.reverse.D,this.count,color6);
+    }
+  }
+
+  if(this.high.H < 0 && this.low.H < 0){
+
+    if(this.start>=315 || this.start<45){
+      this.str += plotV(d,this.high.D, this.low.D,this.count,color5);
+      this.count+=d
+      this.str += plotV(d,this.high.A, this.low.A,this.count,color4);
+      this.count+=d
+      this.str += plotV(d,this.high.A, this.high.reverse.C,this.count,color6);
+
+    }
+
+    if(this.start>=45 && this.start<135){
+      this.str += plotV(d,this.high.C, this.low.C,this.count,color4);
+      this.count+=d
+      this.str += plotV(d,this.high.D, this.low.D,this.count,color5);
+      this.count+=d
+      this.str += plotV(d,this.high.A, this.high.reverse.C,this.count,color6);
+    }
+
+    if(this.start>=135 && this.start<225){
+      this.str += plotV(d,this.high.B, this.low.B,this.count,color5);
+      this.count+=d
+      this.str += plotV(d,this.high.C, this.low.C,this.count,color4);
+      this.count+=d
+      this.str += plotV(d,this.high.A, this.high.reverse.C,this.count,color6);
+    }
+
+    if(this.start>=225 && this.start<315){
+      this.str += plotV(d,this.high.A, this.low.A,this.count,color4);
+      this.count+=d
+      this.str += plotV(d,this.high.B, this.low.B,this.count,color5);
+      this.count+=d
+      this.str += plotV(d,this.high.A, this.high.reverse.C,this.count,color6);
+    }
+  }
+
+  if(this.high.H >= 0 && this.low.H <= 0){
+
+    if(this.start>=315 || this.start<45){
+      this.str += plotV(d,this.high.A, this.high.reverse.C,this.count,color6);
+      this.count+=d
+      this.str += plotV(d,this.high.D, this.low.D,this.count,color5);
+      this.count+=d
+      this.str += plotV(d,this.high.A, this.low.A,this.count,color4);
+    }
+
+    if(this.start>=45 && this.start<135){
+      this.str += plotV(d,this.high.A, this.high.reverse.C,this.count,color6);
+      this.count+=d
+      this.str += plotV(d,this.high.C, this.low.C,this.count,color4);
+      this.count+=d
+      this.str += plotV(d,this.high.D, this.low.D,this.count,color5);
+    }
+
+    if(this.start>=135 && this.start<225){
+      this.str += plotV(d,this.high.A, this.high.reverse.C,this.count,color6);
+      this.count+=d
+      this.str += plotV(d,this.high.B, this.low.B,this.count,color5);
+      this.count+=d
+      this.str += plotV(d,this.high.C, this.low.C,this.count,color4);
+    }
+
+    if(this.start>=225 && this.start<315){
+      this.str += plotV(d,this.high.A, this.high.reverse.C,this.count,color6);
+      this.count+=d
+      this.str += plotV(d,this.high.A, this.low.A,this.count,color4);
+      this.count+=d
+      this.str += plotV(d,this.high.B, this.low.B,this.count,color5);
+    }
+  }
 }
+
 
 var first = new shell(10,1,5,20,1);
 var second = new shell(10,1,4.5,20,1);
 
-var both = new two(first,second);
+var both = new plot(first,second);
 console.log(both);
 
+var element = document.getElementById('p1');
+element.innerHTML = both.str + '</br>';
+var hiddenElement = document.createElement('a');
 
 
 // function makeOne(count,d,pointsA,pointsB,start,H,H2){
@@ -483,9 +469,7 @@ console.log(both);
 
 
 
-// var element = document.getElementById('p1');
-// element.innerHTML = text + '</br>';
-// var hiddenElement = document.createElement('a');
+
 
 
 
