@@ -78,48 +78,40 @@ function plotV(d,A,B,count,color){
   return smStr
 }
 
-function multipleStart(H1,H2){
-  for(j=0;j<1;j++){
-    text += '</br>' + 'new' + '</br>' + 'newbuffer ' + '</br>';
-    var start = regulate(base);
-    var pointsA = getPoints(d,start,H1,F,L);
-    var pointsB = getPoints(d,start,H2,F,L);
-    text += makeOne(count,d,pointsA,pointsB,start,H1,H2);
-    base += 18;
-    count+=1
-  }
-  base = 0;
-  count += d*3
+function multipleStart(H1,H2,move,base){
+  text += '</br>' + 'new' + '</br>' + 'newbuffer ' + '</br>';
+  var start = regulate(base);
+  var pointsA = getPoints(d,start,H1,F,L);
+  var pointsB = getPoints(d,start,H2,F,L);
+  text += makeOne(count,d,pointsA,pointsB,start,H1,H2);
+  //base += move;
+  count+=1
+//count += d*3
 }
 
-function multiple(H1,H2){
-  for(j=0;j<1;j++){
-    text += '</br>' + '</br>' + 'newbuffer ' + '</br>';
-    var start = regulate(base);
-    var pointsA = getPoints(d,start,H1,F,L);
-    var pointsB = getPoints(d,start,H2,F,L);
-    text += makeOne(count,d,pointsA,pointsB,start,H1,H2);
-    base += 18;
-    count+=1
-  }
-  base = 0;
-  count += d*3
+function multiple(H1,H2,move,base){
+  text += '</br>' + '</br>' + 'newbuffer ' + '</br>';
+  var start = regulate(base);
+  var pointsA = getPoints(d,start,H1,F,L);
+  var pointsB = getPoints(d,start,H2,F,L);
+  text += makeOne(count,d,pointsA,pointsB,start,H1,H2);
+  //base += move;
+  count+=1
+//count += d*3
 }
 
-function multipleEnd(H1,H2){
-  for(j=0;j<1;j++){
-    text += '</br>' + 'newbuffer' + '</br>';
-    var start = regulate(base);
-    var pointsA = getPoints(d,start,H1,F,L);
-    var pointsB = getPoints(d,start,H2,F,L);
-    text += makeOne(count,d,pointsA,pointsB,start,H1,H2);
-    var loc = '</br>' + 'savejpg /Users/royschuyler/Desktop/auto9/' + j + '.jpg 2' + '</br>' + 'close' + '</br>';
-    var extra = 'windowsize 700 700' + '</br>' + 'blinewidth 2 all' + '</br>' + 'drawframe no' + '</br>' + 'asetticks x no' + '</br>' + 'asetticks y no' + '</br>' + 'asetminticks x no' + '</br>' + 'asetminticks y no' + '</br>' +'framewidth 0' + '</br>' + 'bstyle yes no no no no no no yes no no 0' + '</br>' + 'margins 0 0 0 0' + '</br>' + 'range x '  + -plotSize + ' ' + plotSize + '</br>' + 'range y ' + -plotSize + ' ' + plotSize;
-    text += extra
-    //text += loc;
-    base += 18;
-    count+=1
-  }
+function multipleEnd(H1,H2,move,base){
+  text += '</br>' + 'newbuffer' + '</br>';
+  var start = regulate(base);
+  var pointsA = getPoints(d,start,H1,F,L);
+  var pointsB = getPoints(d,start,H2,F,L);
+  text += makeOne(count,d,pointsA,pointsB,start,H1,H2);
+  var loc = '</br>' + 'savejpg /Users/royschuyler/Desktop/auto9/' + z + '.jpg 2' + '</br>' + 'close' + '</br>';
+  var extra = 'windowsize 700 700' + '</br>' + 'blinewidth 2 all' + '</br>' + 'drawframe no' + '</br>' + 'asetticks x no' + '</br>' + 'asetticks y no' + '</br>' + 'asetminticks x no' + '</br>' + 'asetminticks y no' + '</br>' +'framewidth 0' + '</br>' + 'bstyle yes no no no no no no yes no no 0' + '</br>' + 'margins 0 0 0 0' + '</br>' + 'range x '  + -plotSize + ' ' + plotSize + '</br>' + 'range y ' + -plotSize + ' ' + plotSize;
+  text += extra
+  text += loc;
+  //base += move;
+  count+=1
 }
 
 function regulateArr(d,start){
@@ -225,23 +217,18 @@ function getPoints(d,start,H,F,L){
   obj.reverse.objD.x = obj.objD.x.reverse();
   obj.reverse.objD.y = obj.objD.y.reverse();
 
-
-
   return obj
 }
-
-
 
 function makeOne(count,d,pointsA,pointsB,start,H,H2){
 
   var str = '';
-  //var count = 0;
 
   var color1 = [209/255,5/255,0];
   var color2 = [13/255,30/255,148/255];
   var color3 = [0,118/255,18/255];
   var color4 = [226/255,153/255,0];
-  var color5 = [1,1,1];
+  var color5 = [.9,.9,.9];
   var color6 = [0,0,0];
 
   if(H >= 0 && H2 >= 0){
@@ -314,45 +301,115 @@ function makeOne(count,d,pointsA,pointsB,start,H,H2){
       str += plotV(d,pointsA.objA, pointsA.reverse.objC,count,color5);
     }
   }
+
+  if(H >= 0 && H2 <= 0){
+
+    if(start>=315 || start<45){
+      str += plotV(d,pointsA.objA, pointsA.reverse.objC,count,color5);
+      count+=d
+      str += plotV(d,pointsA.objD, pointsB.objD,count,color4);
+      count+=d
+      str += plotV(d,pointsA.objA, pointsB.objA,count,color1);
+    }
+
+    if(start>=45 && start<135){
+      str += plotV(d,pointsA.objA, pointsA.reverse.objC,count,color5);
+      count+=d
+      str += plotV(d,pointsA.objC, pointsB.objC,count,color3);
+      count+=d
+      str += plotV(d,pointsA.objD, pointsB.objD,count,color4);
+    }
+
+    if(start>=135 && start<225){
+      str += plotV(d,pointsA.objA, pointsA.reverse.objC,count,color5);
+      count+=d
+      str += plotV(d,pointsA.objB, pointsB.objB,count,color2);
+      count+=d
+      str += plotV(d,pointsA.objC, pointsB.objC,count,color3);
+    }
+
+    if(start>=225 && start<315){
+      str += plotV(d,pointsA.objA, pointsA.reverse.objC,count,color5);
+      count+=d
+      str += plotV(d,pointsA.objA, pointsB.objA,count,color1);
+      count+=d
+      str += plotV(d,pointsA.objB, pointsB.objB,count,color2);
+    }
+  }
   return str
 }
 
 
 var plotSize = 7;
-var d = 30;
-var H = -5;
-var H2 = -5.5;
-var H3 = 5;
-var H4 = 4.5;
+var d = 10;
 var F = 20;
 var L = 1;
 
-var base = 0;
+var rounds = 1;
+
+var move1 = 2;
+var move2 = 6;
+var move3 = 10;
+var move4 = 3;
+var move5 = 20;
+var move6 = 5;
+var move7 = 1;
+var move8 = 30;
+var move9 = 15;
+var move10 = 8;
+
+var base = 5;
+var base1 = 10;
+var base2 = 15;
+var base3 = 30;
+var base4 = 40;
+var base5 = 4;
+var base6 = 100;
+var base7 = 0;
+var base8 = 3;
+var base9 = 40;
+var base10 = 80;
+
 var count = 0;
-var count2 = d*3;
 var text = '';
 
+for(z=0;z<rounds;z++){
+  multipleStart(-5,-5.25,move1,base1);
+  count += d*3
+  multiple(-4,-4.25,move2,base2);
+  count += d*3
+  multiple(-3,-3.25,move3,base3);
+  count += d*3
+  multiple(-2,-2.25,move4,base4);
+  count += d*3
+  multiple(-1,-1.25,move5,base5);
+  count += d*3
+  multiple(0.1,-0.25,move5,base5);
+  count += d*3
+  multiple(1,0.75,move6,base6);
+  count += d*3
+  multiple(2,1.75,move7,base7);
+  count += d*3
+  multiple(3,2.75,move8,base8);
+  count += d*3
+  multiple(4,3.75,move9,base9);
+  count += d*3
+  multipleEnd(5,4.75,move10,base10);
 
+count = 0;
+//text = '';
+base1 += move1;
+base2 += move2;
+base3 += move3;
+base4 += move4;
+base5 += move5;
+base6 += move6;
+base7 += move7;
+base8 += move8;
+base9 += move9;
+base10 += move10;
+}
 
-multipleStart(-4.8,-5);
-multiple(-4.4,-4.6);
-multiple(-4,-4.2);
-multiple(-3.6,-3.8);
-multipleEnd(-3.2,-3.4);
-
-// for(j=0;j<1;j++){
-//   var start = regulate(base);
-//   var pointsA = getPoints(d,start,H3,F,L);
-//   var pointsB = getPoints(d,start,H4,F,L);
-//   text += makeOne(count2,d,pointsA,pointsB,start,H3,H4);
-
-//   var loc = '</br>' + 'savejpg /Users/royschuyler/Desktop/auto9/' + j + '.jpg 2' + '</br>' + 'close' + '</br>';
-//   var extra = 'windowsize 700 700' + '</br>' + 'blinewidth 2 all' + '</br>' + 'drawframe no' + '</br>' + 'asetticks x no' + '</br>' + 'asetticks y no' + '</br>' + 'asetminticks x no' + '</br>' + 'asetminticks y no' + '</br>' +'framewidth 0' + '</br>' + 'bstyle yes no no no no no no yes no no 0' + '</br>' + 'margins 0 0 0 0' + '</br>' + 'range x '  + -plotSize + ' ' + plotSize + '</br>' + 'range y ' + -plotSize + ' ' + plotSize;
-//   text += extra
-//   //text += loc;
-//   base += 18;
-//   count+=1
-// }
 
 
 
