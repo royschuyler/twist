@@ -153,8 +153,8 @@ function shell(d,start,H,F,L){
   this.r4 = radians(start+270);
   this.t1 = atan(this.M);
   this.t2 = atan((((this.M*this.L)+this.H))/(this.F+this.L));
-  this.H2 = tan(this.t2)*this.F;
-  this.e = 1/(this.L/(this.H-this.H2));
+  this.HD = tan(this.t2)*this.F;
+  this.e = 1/(this.L/(this.H-this.HD));
   this.c = this.H-(this.L*this.e);
   this.p1 = {
     x: sin(this.r1)*this.L,
@@ -208,11 +208,17 @@ function shell(d,start,H,F,L){
   }
 }
 
+function two(high,low){
+  this.high = high;
+  this.low = low;
+}
 
 var first = new shell(10,1,5,20,1);
 var second = new shell(10,1,4.5,20,1);
-console.log(first);
-console.log(second)
+
+var both = new two(first,second);
+console.log(both);
+
 
 
 // function makeOne(count,d,pointsA,pointsB,start,H,H2){
